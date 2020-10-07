@@ -11,7 +11,7 @@ const INSTANCES = OS.cpus().length
 const DATASET_SIZE = INSTANCES * TARGET_PER_WORKER
 
 if (Cluster.isMaster) {
-	const stream = FS.createWriteStream(Path.join(__dirname, 'randomdata.csv'))
+	const stream = FS.createWriteStream(Path.join(__dirname, 'data/fakerdata.csv'))
 	let generated = 0
 
 	const progressBar = new CLIProgress.SingleBar(
@@ -27,7 +27,6 @@ if (Cluster.isMaster) {
 	const csvTransformer = new Transform({}, { highWaterMark: 16384, encoding: 'utf-8' })
 
 	csvTransformer.pipe(stream)
-
 	progressBar.start(DATASET_SIZE, 0)
 
 	Cluster.on('message', (w, m) => {

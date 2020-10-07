@@ -1,14 +1,17 @@
 {
-  "name": "random-data-generator",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
-  "dependencies": {
-    "cli-progress": "^3.8.2",
-    "faker": "^5.1.0",
-    "json2csv": "^5.0.1"
-  },
-  "devDependencies": {
-    "@types/node": "12"
-  }
+	"name": "random-data-generator",
+	"version": "1.0.0",
+	"main": "index.js",
+	"license": "MIT",
+	"scripts": {
+		"start": "node index.js"
+	},
+	"dependencies": {
+		"cli-progress": "^3.8.2",
+		"faker": "^5.1.0",
+		"json2csv": "^5.0.1"
+	},
+	"devDependencies": {
+		"@types/node": "12"
+	}
 }

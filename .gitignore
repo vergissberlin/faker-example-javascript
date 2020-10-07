@@ -4,4 +4,6 @@
 !/index.js
 !/package.json
 !/yarn.lock
+!/data/
 
+/data/fakerdata.csv
