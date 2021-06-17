@@ -4,14 +4,23 @@ const FS = require('fs')
 const Path = require('path')
 const OS = require('os')
 const CLIProgress = require('cli-progress')
-const {Transform} = require('json2csv')
+const JSON2CSV = require('json2csv')
 
-const TARGET_PER_WORKER = 60000
-const INSTANCES = OS.cpus().length
-const DATASET_SIZE = INSTANCES * TARGET_PER_WORKER
-
+/**
+ * Workers threads
+ *
+ * @see https://nodejs.org/api/worker_threads.html
+ */
 if (Cluster.isMaster) {
-	const stream = FS.createWriteStream(Path.join(__dirname, 'fakerdata.csv'))
+	/**
+	 * Configure to your needs
+	 */
+	const THREADS = !isNaN(parseInt(process.env.THREADS)) ? parseInt(process.env.THREADS) : OS.cpus().length
+	const TARGET = !isNaN(parseInt(process.env.TARGET)) ? parseInt(process.env.TARGET) : 100000
+	const TARGET_PER_THREAD = Math.ceil(TARGET / THREADS)
+
+	console.log(`Generating ${TARGET} fake users on ${THREADS} with every thread generating ${TARGET_PER_THREAD} users...`)
+
 	let generated = 0
 
 	const progressBar = new CLIProgress.SingleBar(
@@ -24,37 +33,44 @@ if (Cluster.isMaster) {
 		CLIProgress.Presets.shades_grey
 	)
 
-	const csvTransformer = new Transform({}, {
-		highWaterMark: 16384,
-		encoding: 'utf-8'
-	})
+	progressBar.start(TARGET, 0)
 
-	csvTransformer.pipe(stream)
-	progressBar.start(DATASET_SIZE, 0)
-
-	Cluster.on('message', (w, m) => {
+	Cluster.on('message', () => {
 		generated++
-		csvTransformer.write(m)
 		progressBar.increment()
 
-		if (generated > DATASET_SIZE) {
+		if (generated > TARGET) {
 			for (const id in Cluster.workers) {
-				Cluster.workers[id].kill()
+				Cluster.workers[id].send('stop')
 			}
+		}
+	})
 
-			stream.close()
+	for (let i = 0; i < THREADS; i++) {
+		Cluster.fork({FILE: Path.join(__dirname, `data/fakerdata_${i}.csv`), TARGET_PER_THREAD})
+	}
+} else {
+	process.on('message', (m) => {
+		if (m === 'stop') {
 			process.exit()
 		}
 	})
 
-	for (let i = 0; i < INSTANCES; i++) {
-		Cluster.fork()
-	}
-} else {
-	for (let i = 0; i < TARGET_PER_WORKER; i++) {
-		const {name, username, email, phone, website} = Faker.helpers.createCard()
-		process.send(JSON.stringify({name, username, email, phone, website}))
-	}
+	FS.writeFileSync(process.env.FILE, 'name,username,email,phone,website')
 
-	process.exit()
+	for (let i = 0; i <= parseInt(process.env.TARGET_PER_THREAD); i++) {
+		/**
+		 * @see https://github.com/marak/Faker.js
+		 */
+		const {name, username, email, phone, website} = Faker.helpers.createCard()
+
+		FS.appendFileSync(
+			process.env.FILE,
+			'\n' + JSON2CSV.parse([{name, username, email, phone, website}], {
+				header: false
+			}) 
+		)
+
+		process.send(i)
+	}
 }
