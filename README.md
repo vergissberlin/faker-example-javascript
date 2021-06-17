@@ -1,4 +1,6 @@
-# Multi thread fake data generater example with javascript
+# fake data generator
+
+> Multi thread fake data generator example with JavaScript
 
 ## Using
 
