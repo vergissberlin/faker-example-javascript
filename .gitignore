@@ -2,6 +2,7 @@
 
 !/.gitignore
 !/index.js
+!/worker.js
 !/package.json
 !/yarn.lock
 !/README.md
