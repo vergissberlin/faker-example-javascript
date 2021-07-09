@@ -3,7 +3,6 @@ const CLIProgress = require('cli-progress')
 
 // Configuration
 const LINES_PER_FILE = !isNaN(parseInt(process.env.LINES_PER_FILE)) ? parseInt(process.env.LINES_PER_FILE) : 10000
-const TIME_START = process.hrtime();
 let FAKE_DATA_TARGET_QUANTATY = !isNaN(parseInt(process.env.TARGET_QUANTATY)) ? parseInt(process.env.TARGET_QUANTATY) : 500000
 let fileTargetQuantity = Math.ceil(FAKE_DATA_TARGET_QUANTATY / LINES_PER_FILE)
 let fileIndex = 0
@@ -61,9 +60,6 @@ function spawnWorker(index) {
 			.then(function () {
 				// Terminate the workers pool when all workers have finised their tasks
 				if (fileQuantaty === fileTargetQuantity) {
-					const TIME_STOP = process.hrtime(TIME_START)
-					console.log(`Created fake users\t:`, FAKE_DATA_TARGET_QUANTATY)
-					console.log(`Time taken to execute\t: ${(TIME_STOP[0] * 1e9 + TIME_STOP[1]) / 1e9} seconds`)
 					pool.terminate();
 				}
 			})
