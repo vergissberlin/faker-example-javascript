@@ -16,16 +16,16 @@ if (Cluster.isMaster) {
 	 * Configure to your needs
 	 */
 	const THREADS = !isNaN(parseInt(process.env.THREADS)) ? parseInt(process.env.THREADS) : OS.cpus().length
-	const TARGET = !isNaN(parseInt(process.env.TARGET)) ? parseInt(process.env.TARGET) : 100000
+	const TARGET = !isNaN(parseInt(process.env.TARGET)) ? parseInt(process.env.TARGET) : 10000000
 	const TARGET_PER_THREAD = Math.ceil(TARGET / THREADS)
 
-	console.log(`Generating ${TARGET} fake users on ${THREADS} with every thread generating ${TARGET_PER_THREAD} users...`)
+	console.log(`🔥 Generating ${TARGET} fake users on ${THREADS} threads, with every thread generating ${TARGET_PER_THREAD} users.`)
 
 	let generated = 0
 
 	const progressBar = new CLIProgress.SingleBar(
 		{
-			format: 'Generating Datasets: [' + '{bar}' + '] {percentage}% | {value}/{total} Datasets',
+			format: '🤖 Generating Datasets: [' + '{bar}' + '] {percentage}% | {value}/{total} Datasets',
 			hideCursor: true,
 			clearOnComplete: true,
 			stopOnComplete: true
@@ -68,7 +68,7 @@ if (Cluster.isMaster) {
 			process.env.FILE,
 			'\n' + JSON2CSV.parse([{name, username, email, phone, website}], {
 				header: false
-			}) 
+			})
 		)
 
 		process.send(i)

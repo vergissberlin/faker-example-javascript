@@ -64,6 +64,11 @@ lodash.get@^4.4.2:
   resolved "https://registry.yarnpkg.com/lodash.get/-/lodash.get-4.4.2.tgz#2d177f652fa31e939b4438d5341499dfa3825e99"
   integrity sha1-LRd/ZS+jHpObRDjVNBSZ36OCXpk=
 
+node-worker-threads-pool@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/node-worker-threads-pool/-/node-worker-threads-pool-1.5.0.tgz#dac48e974d61c048602e325d2461ba6565e6afcc"
+  integrity sha512-UYQdl4/MPd7wWFXCdGU9T9T1One7o1xD6CbNPeAyeNZV66Ib0WrFqW2dO2/UP1yiMwlnu91GQ76u/xnRcFRVmg==
+
 string-width@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.0.tgz#952182c46cc7b2c313d1596e623992bd163b72b5"
@@ -79,3 +84,8 @@ strip-ansi@^6.0.0:
   integrity sha512-AuvKTrTfQNYNIctbR1K/YGTR1756GycPsg7b9bdV9Duqur4gv6aKqHXah67Z8ImS7WEz5QVcOtlfW2rZEugt6w==
   dependencies:
     ansi-regex "^5.0.0"
+
+workerpool@^6.1.5:
+  version "6.1.5"
+  resolved "https://registry.yarnpkg.com/workerpool/-/workerpool-6.1.5.tgz#0f7cf076b6215fd7e1da903ff6f22ddd1886b581"
+  integrity sha512-XdKkCK0Zqc6w3iTxLckiuJ81tiD/o5rBE/m+nXpRCB+/Sq4DqkfXZ/x0jW02DG1tGsfUGXbTJyZDP+eu67haSw==
