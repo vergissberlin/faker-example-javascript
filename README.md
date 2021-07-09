@@ -29,6 +29,12 @@ docker run -it -v $PWD:/app -w /app node yarn start
 | TARGET_QUANTATY | Quantatiy of fake data records to generate | 500000        |
 | LINES_PER_FILE  | Users per csv file.                         | 10000         |
 
+##### Examples
+
+```bash
+TARGET_QUANTATY=90000 LINES_PER_FILE=5000 yarn start
+```
+
 ```bash
 docker run -it -v $PWD:/app -w /app -e TARGET_QUANTATY=9000000 node yarn start
 ```
