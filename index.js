@@ -10,9 +10,9 @@ let fileIndex = 0
 let fileQuantaty = 0
 
 // Intro
-console.log(`\n🔥\tGenerating ${fileTargetQuantity} files with ${LINES_PER_FILE} fake users in each file.`)
-console.log(`\tIn total, you get ${FAKE_DATA_TARGET_QUANTATY} fake users.`)
-console.log(`\tTo generate them it uses all of your ${workerpool.cpus} CPUs.\n`)
+console.log(`\n🔥\tGenerating \x1b[32m${fileTargetQuantity}\x1b[0m files with \x1b[32m${LINES_PER_FILE}\x1b[0m fake users in each file.`)
+console.log(`\tIn total, you get \x1b[32m${FAKE_DATA_TARGET_QUANTATY}\x1b[0m fake users.`)
+console.log(`\tTo generate them it uses all of your \x1b[32m${workerpool.cpus}\x1b[0m CPUs.\n`)
 
 // Debugging
 /*
@@ -37,7 +37,7 @@ const progressBar = new CLIProgress.SingleBar(
 
 // Create a worker pool using an external worker script
 const pool = workerpool.pool(__dirname + '/worker.js', {
-	workerType: 'auto'
+	workerType: 'process' // 'auto', 'web', 'process' or 'thread'
 });
 
 // Start progress bar
