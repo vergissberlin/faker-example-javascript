@@ -2,9 +2,9 @@ const workerpool = require('workerpool');
 const CLIProgress = require('cli-progress')
 
 // Configuration
-const LINES_PER_FILE = 1000
+const LINES_PER_FILE = !isNaN(parseInt(process.env.LINES_PER_FILE)) ? parseInt(process.env.LINES_PER_FILE) : 10000
 const TIME_START = process.hrtime();
-let FAKE_DATA_TARGET_QUANTATY = 500000
+let FAKE_DATA_TARGET_QUANTATY = !isNaN(parseInt(process.env.TARGET_QUANTATY)) ? parseInt(process.env.TARGET_QUANTATY) : 500000
 let fileTargetQuantity = Math.ceil(FAKE_DATA_TARGET_QUANTATY / LINES_PER_FILE)
 let fileIndex = 0
 let fileQuantaty = 0

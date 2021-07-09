@@ -24,13 +24,13 @@ docker run -it -v $PWD:/app -w /app node yarn start
 
 #### Configuration
 
-| Name    | Description                                        | Default value |
-| ------- | -------------------------------------------------- | ------------- |
-| THREADS | Amount of processes it should use to generate data | $(nproc)      |
-| TARGET_PER_THREAD  | Total of fake users it should generate             | 100000        |
+| Name            | Description                                | Default value |
+| --------------- | ------------------------------------------ | ------------- |
+| TARGET_QUANTATY | Quantatiy of fake data records to generate | 500000        |
+| LINES_PER_FILE  | Users per csv file.                         | 10000         |
 
 ```bash
-docker run -it -v $PWD:/app -w /app -e TARGET=144 node yarn start
+docker run -it -v $PWD:/app -w /app -e TARGET_QUANTATY=9000000 node yarn start
 ```
 
 ## Wanna know more about?
@@ -40,5 +40,5 @@ Go ahead! [https://medium.com/p/98b990967824]
 
 ## Contributors
 
-- [TheDevMinerTV](https://github.com/TheDevMinerTV)
 - [André Lademann](https://github.com/vergissberlin)
+- [TheDevMinerTV](https://github.com/TheDevMinerTV)
