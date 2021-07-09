@@ -4,8 +4,8 @@
 
 > In Node.js everything runs in parallel, except your code. What this means is that all I/O code that you write in Node.js is non-blocking, while (conversely) all non-I/O code that you write in Node.js is blocking.
 
-![Single thread](docs/thread-single.png "Waiting loong")
-![Multi thread](docs/thread-multi.png "Go brrr")
+![Single thread](./docs/thread-single.png "Waiting loong")
+![Multi thread](./docs/thread-multi.png "Go brrr")
 
 ## Using
 

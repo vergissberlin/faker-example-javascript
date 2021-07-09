@@ -7,5 +7,6 @@
 !/yarn.lock
 !/README.md
 !/data/
+!/docs/
 
 /data/userdata*
