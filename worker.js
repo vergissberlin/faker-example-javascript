@@ -4,6 +4,9 @@ const faker = require('faker')
 const JSON2CSV = require('json2csv')
 const Path = require('path')
 
+/**
+ * generate fake da data
+ */
 function fakeIt(fileIndex, quantity) {
   return new Promise(function (resolve, reject) {
     let fakeDataArray = []

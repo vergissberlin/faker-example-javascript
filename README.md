@@ -33,6 +33,7 @@ docker run -it -v $PWD:/app -w /app node yarn start
 | --------------- | ------------------------------------------ | ------------- |
 | TARGET_QUANTATY | Quantatiy of fake data records to generate | 500000        |
 | LINES_PER_FILE  | Users per csv file.                         | 10000         |
+| WORKER_TYPE     | 'auto', 'web', 'process' or 'thread'       | process       |
 
 ##### Examples
 
