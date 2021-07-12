@@ -38,7 +38,7 @@ docker run -it -v $PWD:/app -w /app node yarn start
 ##### Examples
 
 ```bash
-TARGET_QUANTATY=90000 LINES_PER_FILE=5000 yarn start
+TARGET_QUANTATY=90000 LINES_PER_FILE=5000 WORKER_TYPE=thread yarn start
 ```
 
 ```bash
