@@ -29,17 +29,22 @@ docker run -it -v $PWD:/app -w /app node yarn start
 
 #### Configuration
 
-| Name             | Description                                | Default value |
-| ---------------- | ------------------------------------------ | ------------- |
-| TARGET_QUANTITY  | Quantatiy of fake data records to generate | 500000        |
-| LINES_PER_FILE   | Data per csv file.                         | 10000         |
-| WORKER_TYPE      | 'auto', 'web', 'process' or 'thread'       | process       |
-| WORKER_COUNT_MAX | The umber of thread to use                 | CPUs count    |
-| DATA_TYPE        | 'user' or 'product'                        | product       |
+| Name             | Description                                     | Default value       |
+| ---------------- | ----------------------------------------------- | ------------------- |
+| TARGET_QUANTITY  | Quantatiy of fake data records to generate      | 500000              |
+| LINES_PER_FILE   | Data per csv file                               | 10000               |
+| WORKER_TYPE      | 'process' or 'thread'                           | process             |
+| WORKER_COUNT_MAX | The number of threads or child processes to use | Number of CPU cores |
+| DATA_TYPE        | 'user' or 'product'                             | product             |
+
+One note to DATA_TYPE. Feel free to use 'user' or 'product' as long as you are generating fake
+user data or fake product data. If you are generating fake product data, you should use 'product'
+as DATA_TYPE. You can find the types in the types folder. You can add your own types by adding a
+new file to the types folder.
 
 ##### Examples
 
-Run with local node.js
+Run with local node.js. You should have at least 4GB of free memory and node.js >= 14 installed.
 
 ```bash
 TARGET_QUANTITY=90000 LINES_PER_FILE=5000 WORKER_TYPE=thread yarn start
@@ -53,7 +58,8 @@ docker run -it -v $PWD:/app -w /app -e TARGET_QUANTITY=9000000 node yarn start
 
 ##### Test with hyperfine
 
-*hyperfine* is a tool for running benchmark tests for CLI applications. Let's do a benchmark test with *hyperfine* for the *fake-data-generator* project.
+[hyperfine](https://github.com/sharkdp/hyperfine) is a tool for running benchmark tests for CLI applications.
+Let's do a benchmark test with *hyperfine* for the *fake-data-generator* project.
 
 ```bash
 hyperfine -r 10 \
