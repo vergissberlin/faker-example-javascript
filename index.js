@@ -3,7 +3,7 @@ import CLIProgress from 'cli-progress'
 
 // Configuration
 const LINES_PER_FILE = !isNaN(parseInt(process.env.LINES_PER_FILE)) ? parseInt(process.env.LINES_PER_FILE) : 10000
-const WORKER_TYPE = ['auto', 'process', 'thread'].includes(process.env.WORKER_TYPE) ? process.env.WORKER_TYPE : 'process' // 'auto', 'web', 'process' or 'thread'
+const WORKER_TYPE = ['auto', 'process', 'thread'].includes(process.env.WORKER_TYPE) ? process.env.WORKER_TYPE : 'process' // 'process' or 'thread'
 const WORKER_COUNT_MAX = !isNaN(parseInt(process.env.WORKER_COUNT_MAX)) ? parseInt(process.env.WORKER_COUNT_MAX) : workerpool.cpus
 const FAKE_DATA_TYPE = ['product', 'user'].includes(process.env.DATA_TYPE) ? process.env.DATA_TYPE : 'product' // 'product' or 'user'
 const FAKE_DATA_TARGET_QUANTITY = !isNaN(parseInt(process.env.TARGET_QUANTITY)) ? parseInt(process.env.TARGET_QUANTITY) : 500000
@@ -69,7 +69,7 @@ async function spawnWorker(index) {
 	}
 }
 
-// Spawn the first workers. One for each available core.
-for (let threadIndex = 0; threadIndex < workerpool.cpus; threadIndex++) {
+// Initals spawn worker(s)
+for (let threadIndex = 0; threadIndex <= WORKER_COUNT_MAX; threadIndex++) {
 	spawnWorker(threadIndex)
 }
