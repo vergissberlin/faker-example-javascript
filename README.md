@@ -27,7 +27,7 @@ docker run -it -v $PWD:/app -w /app node yarn
 docker run -it -v $PWD:/app -w /app node yarn start
 ```
 
-#### Configuration
+### Configuration
 
 | Name             | Description                                     | Default value       |
 | ---------------- | ----------------------------------------------- | ------------------- |
@@ -42,7 +42,7 @@ user data or fake product data. If you are generating fake product data, you sho
 as DATA_TYPE. You can find the types in the types folder. You can add your own types by adding a
 new file to the types folder.
 
-##### Examples
+### Examples
 
 Run with local node.js. You should have at least 4GB of free memory and node.js >= 14 installed.
 
@@ -56,10 +56,12 @@ Run with Docker
 docker run -it -v $PWD:/app -w /app -e TARGET_QUANTITY=9000000 node yarn start
 ```
 
-##### Test with hyperfine
+### Test with hyperfine
 
 [hyperfine](https://github.com/sharkdp/hyperfine) is a tool for running benchmark tests for CLI applications.
 Let's do a benchmark test with *hyperfine* for the *fake-data-generator* project.
+
+#### 10,000 test products
 
 ```bash
 hyperfine -r 10 \
@@ -67,6 +69,8 @@ hyperfine -r 10 \
     -n "Worker threads"  "TARGET_QUANTITY=100000 LINES_PER_FILE=10000 WORKER_TYPE=thread yarn start" \
     -n "Child processes" "TARGET_QUANTITY=100000 LINES_PER_FILE=10000 WORKER_TYPE=process yarn start"
 ```
+
+#### 10,000,000 test products
 
 ```bash
 hyperfine -r 10 \
