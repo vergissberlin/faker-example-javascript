@@ -29,20 +29,44 @@ docker run -it -v $PWD:/app -w /app node yarn start
 
 #### Configuration
 
-| Name            | Description                                | Default value |
-| --------------- | ------------------------------------------ | ------------- |
-| TARGET_QUANTATY | Quantatiy of fake data records to generate | 500000        |
-| LINES_PER_FILE  | Users per csv file.                         | 10000         |
-| WORKER_TYPE     | 'auto', 'web', 'process' or 'thread'       | process       |
+| Name             | Description                                | Default value |
+| ---------------- | ------------------------------------------ | ------------- |
+| TARGET_QUANTITY  | Quantatiy of fake data records to generate | 500000        |
+| LINES_PER_FILE   | Data per csv file.                         | 10000         |
+| WORKER_TYPE      | 'auto', 'web', 'process' or 'thread'       | process       |
+| WORKER_COUNT_MAX | The umber of thread to use                 | CPUs count    |
+| DATA_TYPE        | 'user' or 'product'                        | product       |
 
 ##### Examples
 
+Run with local node.js
+
 ```bash
-TARGET_QUANTATY=90000 LINES_PER_FILE=5000 WORKER_TYPE=thread yarn start
+TARGET_QUANTITY=90000 LINES_PER_FILE=5000 WORKER_TYPE=thread yarn start
+```
+
+Run with Docker
+
+```bash
+docker run -it -v $PWD:/app -w /app -e TARGET_QUANTITY=9000000 node yarn start
+```
+
+##### Test with hyperfine
+
+*hyperfine* is a tool for running benchmark tests for CLI applications. Let's do a benchmark test with *hyperfine* for the *fake-data-generator* project.
+
+```bash
+hyperfine -r 10 \
+    -n "Single thread"   "TARGET_QUANTITY=100000 LINES_PER_FILE=10000 WORKER_TYPE=process WORKER_COUNT_MAX=1 yarn start" \
+    -n "Worker threads"  "TARGET_QUANTITY=100000 LINES_PER_FILE=10000 WORKER_TYPE=thread yarn start" \
+    -n "Child processes" "TARGET_QUANTITY=100000 LINES_PER_FILE=10000 WORKER_TYPE=process yarn start"
 ```
 
 ```bash
-docker run -it -v $PWD:/app -w /app -e TARGET_QUANTATY=9000000 node yarn start
+hyperfine -r 10 \
+    -n "Single thread"   "TARGET_QUANTITY=10000000 LINES_PER_FILE=100000 WORKER_TYPE=process WORKER_COUNT_MAX=1 yarn start" \
+    -n "Worker threads"  "TARGET_QUANTITY=10000000 LINES_PER_FILE=100000 WORKER_TYPE=thread yarn start" \
+    -n "Child processes" "TARGET_QUANTITY=10000000 LINES_PER_FILE=100000 WORKER_TYPE=process yarn start"
 ```
 
 ## Wanna know more about?
