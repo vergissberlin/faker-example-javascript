@@ -47,13 +47,13 @@ new file to the types folder.
 Run with local node.js. You should have at least 4GB of free memory and node.js >= 14 installed.
 
 ```bash
-TARGET_QUANTITY=90000 LINES_PER_FILE=5000 WORKER_TYPE=thread yarn start
+TARGET_QUANTITY=500000 LINES_PER_FILE=10000 WORKER_TYPE=thread yarn start
 ```
 
 Run with Docker
 
 ```bash
-docker run -it -v $PWD:/app -w /app -e TARGET_QUANTITY=9000000 node yarn start
+docker run -it -v $PWD:/app -w /app -e TARGET_QUANTITY=5000000 node yarn start
 ```
 
 ### Test with hyperfine
@@ -61,22 +61,13 @@ docker run -it -v $PWD:/app -w /app -e TARGET_QUANTITY=9000000 node yarn start
 [hyperfine](https://github.com/sharkdp/hyperfine) is a tool for running benchmark tests for CLI applications.
 Let's do a benchmark test with *hyperfine* for the *fake-data-generator* project.
 
-#### 10,000 test products
+#### 20,000,000 test products with 10,000 products in each file
 
 ```bash
 hyperfine -r 10 \
-    -n "Single thread"   "TARGET_QUANTITY=100000 LINES_PER_FILE=10000 WORKER_TYPE=process WORKER_COUNT_MAX=1 yarn start" \
-    -n "Worker threads"  "TARGET_QUANTITY=100000 LINES_PER_FILE=10000 WORKER_TYPE=thread yarn start" \
-    -n "Child processes" "TARGET_QUANTITY=100000 LINES_PER_FILE=10000 WORKER_TYPE=process yarn start"
-```
-
-#### 10,000,000 test products
-
-```bash
-hyperfine -r 10 \
-    -n "Single thread"   "TARGET_QUANTITY=10000000 LINES_PER_FILE=100000 WORKER_TYPE=process WORKER_COUNT_MAX=1 yarn start" \
-    -n "Worker threads"  "TARGET_QUANTITY=10000000 LINES_PER_FILE=100000 WORKER_TYPE=thread yarn start" \
-    -n "Child processes" "TARGET_QUANTITY=10000000 LINES_PER_FILE=100000 WORKER_TYPE=process yarn start"
+    -n "Single thread"   "TARGET_QUANTITY=20000000 LINES_PER_FILE=10000 WORKER_TYPE=process WORKER_COUNT_MAX=1 yarn start" \
+    -n "Worker threads"  "TARGET_QUANTITY=20000000 LINES_PER_FILE=10000 WORKER_TYPE=thread yarn start" \
+    -n "Child processes" "TARGET_QUANTITY=20000000 LINES_PER_FILE=10000 WORKER_TYPE=process yarn start"
 ```
 
 ## Wanna know more about?
