@@ -14,7 +14,7 @@
 		"cli-progress": "^3.8.2",
 		"faker": "^5.1.0",
 		"json2csv": "^5.0.1",
-		"workerpool": "^6.1.5"
+		"workerpool": "^8.0.0"
 	},
 	"devDependencies": {
 		"@types/node": "14.17.6"
